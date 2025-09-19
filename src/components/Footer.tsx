@@ -21,7 +21,7 @@ export default function Footer() {
             <a href="#">
               <Facebook size={20} />
             </a>
-            <a href="#">
+            <a href="https://www.instagram.com/_terse_rah_/">
               <Instagram size={20} />
             </a>
             <a href="#">

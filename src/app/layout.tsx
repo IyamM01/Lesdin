@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {
@@ -19,6 +28,9 @@ export const metadata: Metadata = {
       "Sekolah menengah kejuruan yang berkomitmen menghasilkan lulusan berkualitas dan siap kerja.",
     type: "website",
   },
+  icons: {
+    icon: "/image/logo-sekolah.png",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +40,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body
+        className={`${poppins.className} ${poppins.variable} ${montserrat.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

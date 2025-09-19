@@ -17,12 +17,20 @@ body {
   color: var(--foreground);
 }
 
-/* Scroll behavior */
+/* Font utilities */
+.font-montserrat {
+  font-family: var(--font-montserrat), sans-serif !important;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif !important;
+}
+
+/* Existing styles... */
 html {
   scroll-behavior: smooth;
 }
 
-/* Marquee Animation */
 @keyframes marquee {
   0% {
     transform: translate3d(0, 0, 0);
@@ -40,7 +48,6 @@ html {
   animation-play-state: paused;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
