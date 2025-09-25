@@ -64,6 +64,9 @@ export default function Hero() {
             variants={fadeInUp}
             transition={{ delay: 0.3 }}
             className="bg-[#3C5148] hover:bg-[#678E4D] text-sm font-semibold px-6 py-2 rounded-full shadow-md transition mb-6"
+            onClick={() => {
+              window.location.href = "/mitra";
+            }}
           >
             Info PKL Baca Selengkapnya
             <ArrowRight className="inline-block ml-2 h-4 w-4" />
@@ -212,16 +215,19 @@ export default function Hero() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={stagger}
-        className="py-20 px-6 bg-white"
+        className="py-20 px-6 md:px-12 lg:px-16 bg-white relative" // Ubah ke bg-white
       >
-        <div className="flex flex-col md:flex-row items-center max-w-5xl mx-auto">
-          {/* Background hijau di belakang gambar */}
+        {/* Background hijau hanya 30% dari kiri */}
+        <div className="absolute left-0 top-0 w-[25%] h-full bg-[#B7CDB0] z-0" />
+
+        <div className="flex flex-col md:flex-row items-center max-w-5xl mx-auto gap-8 md:gap-12 relative z-10">
           <motion.div
             variants={slideInLeft}
             transition={{ duration: 0.8 }}
-            className="relative md:w-1/2 w-full flex-shrink-0 flex justify-center"
+            className="relative md:w-1/2 w-full flex-shrink-0 flex justify-start"
           >
-            <div className="absolute left-0 top-6 w-[90%] h-[90%] bg-[#B7CDB0] rounded-lg -z-10" />
+            {/* Background putih di belakang gambar - posisi kanan bawah */}
+            <div className="absolute right-32 bottom-0 w-[90%] h-[100%] bg-[#B7CDB0] rounded-lg z-0" />
             <Image
               src="/image/bg-sekolah-3.png"
               alt="Kegiatan PKL"
@@ -232,45 +238,31 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Card Putih */}
+          {/* Konten Teks (tanpa card) */}
           <motion.div
             variants={slideInRight}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white rounded-xl shadow-lg p-8 md:ml-8 mt-8 md:mt-0 md:w-1/2 w-full"
+            className="p-8 mt-8 md:mt-0 md:w-1/2 w-full"
           >
             <motion.p
               variants={fadeInUp}
               transition={{ delay: 0.4 }}
-              className="text-[#B2C583] text-sm font-medium flex items-center gap-2 mb-2"
+              className="text-[#678E4D] text-sm font-medium flex items-center gap-2 mb-2"
             >
-              <svg
-                width="18"
-                height="18"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="inline-block"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              <GraduationCap className="h-5 w-5" />
               Info Praktik Kerja Lapangan
             </motion.p>
             <motion.h2
               variants={fadeInUp}
               transition={{ delay: 0.6 }}
-              className="text-xl md:text-2xl font-bold mb-2 text-[#678E4D]"
+              className="text-xl md:text-2xl font-bold mb-4 text-[#2D4A32]"
             >
               Pengalaman Nyata untuk Masa Depan Karier
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               transition={{ delay: 0.8 }}
-              className="text-[#1B2727] text-sm leading-relaxed"
+              className="text-[#2D4A32] text-sm leading-relaxed mb-6"
             >
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industrys standard dummy text
@@ -338,6 +330,9 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-[#3C5148] hover:bg-[#678E4D] text-white font-semibold py-3 px-8 rounded-lg shadow transition flex items-center gap-2 text-lg"
+              onClick={() => {
+                window.location.href = "/mitra";
+              }}
             >
               Mitra PKL
               <ArrowRight className="inline-block h-5 w-5" />

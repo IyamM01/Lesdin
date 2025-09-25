@@ -48,20 +48,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Side - Carousel */}
-      <div className="flex-1 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Left Side - Carousel (Mobile: Top, Desktop: Left) */}
+      <div className="flex-1 relative overflow-hidden h-64 lg:h-screen">
         {/* Logo Sekolah */}
-        <div className="absolute top-6 left-6 z-20 flex items-center gap-3">
+        <div className="absolute top-4 left-4 lg:top-6 lg:left-6 z-20 flex items-center gap-2 lg:gap-3">
           <Image
             src="/image/logo-sekolah.png"
             alt="SMK Negeri 2 Depok Sleman"
-            width={48}
-            height={48}
-            className="object-contain rounded-full p-1 shadow-md"
+            width={32}
+            height={32}
+            className="lg:w-12 lg:h-12 object-contain rounded-full p-1 shadow-md"
             priority
           />
-          <h1 className="font-bold text-lg text-white drop-shadow">
+          <h1 className="font-bold text-sm lg:text-lg text-white drop-shadow">
             SMK Negeri 2 Depok Sleman
           </h1>
         </div>
@@ -86,14 +86,21 @@ export default function LoginPage() {
               <div className="absolute inset-0 bg-black/40" />
             </div>
 
-            {/* Overlay Text */}
-            <div className="absolute bottom-24 left-8 right-8 z-10">
+            {/* Overlay Text - Hidden on Mobile */}
+            <div className="hidden lg:block absolute bottom-24 left-8 right-8 z-10">
               <h2 className="text-white text-3xl font-bold mb-3 max-w-md leading-snug">
                 {slide.title}
               </h2>
               <p className="text-white/90 text-lg max-w-md leading-relaxed">
                 {slide.description}
               </p>
+            </div>
+
+            {/* Mobile Overlay Text - Only visible on mobile */}
+            <div className="lg:hidden absolute bottom-4 left-4 right-4 z-10">
+              <h2 className="text-white text-lg font-bold mb-1 leading-tight">
+                {slide.title}
+              </h2>
             </div>
           </div>
         ))}
@@ -105,24 +112,24 @@ export default function LoginPage() {
               (prev) => (prev - 1 + slides.length) % slides.length
             )
           }
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition"
+          className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 lg:w-12 lg:h-12 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={16} className="lg:w-6 lg:h-6" />
         </button>
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition"
+          className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 lg:w-12 lg:h-12 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={16} className="lg:w-6 lg:h-6" />
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-8 left-8 z-20 flex gap-2">
+        <div className="absolute bottom-2 left-4 lg:bottom-8 lg:left-8 z-20 flex gap-2">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition ${
+              className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full transition ${
                 index === currentSlide ? "bg-white" : "bg-white/50"
               }`}
             />
@@ -130,15 +137,15 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Side - Login Form */}
-      <div className="flex-1 bg-gray-50 flex items-center justify-center p-8">
+      {/* Right Side - Login Form (Mobile: Bottom, Desktop: Right) */}
+      <div className="flex-1 bg-gray-50 flex items-center justify-center p-4 lg:p-8">
         <div className="w-full max-w-md">
           {/* Welcome */}
-          <div className="text-start mb-8">
-            <h2 className="text-3xl font-bold text-[#3C5148] mb-2">
+          <div className="text-start mb-6 lg:mb-8">
+            <h2 className="text-2xl lg:text-3xl font-bold text-[#3C5148] mb-2">
               Selamat Datang!
             </h2>
-            <p className="color-[rgba(0, 0, 0, 0.80)]">
+            <p className="text-sm lg:text-base text-[#1B2727]">
               Setiap perjalanan dimulai dengan satu langkah. Mulailah di sini.
             </p>
           </div>
@@ -149,7 +156,7 @@ export default function LoginPage() {
               e.preventDefault();
               handleSubmit();
             }}
-            className="space-y-6"
+            className="space-y-4 lg:space-y-6"
           >
             {/* NIS */}
             <input
@@ -158,7 +165,7 @@ export default function LoginPage() {
               placeholder="NIS"
               value={formData.nis}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition"
+              className="w-full px-4 py-3 border border-[#D5DDDF] rounded-lg focus:ring-2 focus:ring-[#3C5148] focus:border-transparent transition text-sm lg:text-base"
               required
             />
 
@@ -170,7 +177,7 @@ export default function LoginPage() {
                 placeholder="Kata Sandi"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition pr-12"
+                className="w-full px-4 py-3 border border-[#D5DDDF] rounded-lg focus:ring-2 focus:ring-[#3C5148] focus:border-transparent transition pr-12 text-sm lg:text-base"
                 required
               />
               <button
@@ -178,24 +185,28 @@ export default function LoginPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? (
+                  <EyeOff size={18} className="lg:w-5 lg:h-5" />
+                ) : (
+                  <Eye size={18} className="lg:w-5 lg:h-5" />
+                )}
               </button>
             </div>
 
             {/* Remember Me & Forgot */}
             <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-600">
+              <label className="flex items-center gap-2 cursor-pointer text-xs lg:text-sm text-[#3C5148]/70">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-600"
+                  className="w-3 h-3 lg:w-4 lg:h-4 text-[#3C5148] border-gray-300 rounded focus:ring-green-600"
                 />
                 Ingat saya
               </label>
               <a
                 href="#"
-                className="text-green-600 hover:text-green-700 text-sm font-medium"
+                className="text-[#3C5148]/70 hover:text-[#678E4D] text-xs lg:text-sm font-medium"
               >
                 Lupa Kata Sandi?
               </a>
@@ -204,22 +215,11 @@ export default function LoginPage() {
             {/* Button */}
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition"
+              className="w-full bg-[#3C5148] hover:bg-[#678E4D] text-white font-semibold py-3 rounded-lg focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition text-sm lg:text-base"
             >
               Masuk
             </button>
           </form>
-
-          {/* Link tambahan */}
-          <p className="text-center mt-6 text-sm text-gray-600">
-            Belum punya akun?{" "}
-            <a
-              href="#"
-              className="text-green-600 hover:text-green-700 font-semibold"
-            >
-              Daftar di sini
-            </a>
-          </p>
         </div>
       </div>
     </div>

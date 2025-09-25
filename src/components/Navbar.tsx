@@ -3,18 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, CircleUserRound } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
+  const isLoggedIn = false; // Ganti dengan logika autentikasi sebenarnya
+
+  // Untuk smooth scroll di mobile
+  const handleKontakClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const footer = document.getElementById("footer");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth" });
+      closeMenu();
+    }
   };
 
   return (
@@ -43,21 +50,32 @@ export default function Navbar() {
               Mitra
             </span>
           </Link>
-          <Link href="/kontak">
-            <span className="hover:text-[#678E4D] transition-colors cursor-pointer">
-              Kontak
-            </span>
-          </Link>
-          <Link href="/profile">
-            <span className="hover:text-[#678E4D] transition-colors cursor-pointer">
-              Profile
-            </span>
-          </Link>
-          <Link href="/auth">
-            <button className="px-5 py-2 bg-[#3C5148] text-white rounded-full hover:bg-[#678E4D] transition-colors">
-              Login
-            </button>
-          </Link>
+          <a
+            href="#footer"
+            onClick={(e) => {
+              e.preventDefault();
+              const footer = document.getElementById("footer");
+              if (footer) {
+                footer.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="hover:text-[#678E4D] transition-colors cursor-pointer"
+          >
+            Kontak
+          </a>
+          {isLoggedIn ? (
+            <Link href="/profile">
+              <button className="flex items-center justify-center transition-colors">
+                <CircleUserRound className="hover:text-[#1B2727] text-[#3C5148]" />
+              </button>
+            </Link>
+          ) : (
+            <Link href="/auth">
+              <button className="px-5 py-2 bg-[#3C5148] text-white rounded-full hover:bg-[#678E4D] transition-colors">
+                Login
+              </button>
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Hamburger Button */}
@@ -79,7 +97,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            {/* Mobile Menu Backdrop */}
+            {/* Backdrop */}
             <motion.div
               className="fixed inset-0 bg-black z-40 md:hidden"
               initial={{ opacity: 0 }}
@@ -89,25 +107,22 @@ export default function Navbar() {
               onClick={closeMenu}
             />
 
-            {/* Mobile Menu Dropdown */}
+            {/* Dropdown */}
             <motion.div
-              className="fixed top-24 left-1/2 w-[90%] bg-white rounded-2xl shadow-2xl z-50 md:hidden"
+              className="fixed top-24 left-1/2 w-[95vw] max-w-sm bg-white rounded-2xl shadow-2xl z-50 md:hidden -translate-x-1/2"
               initial={{
                 opacity: 0,
                 y: -20,
-                x: "-50%",
                 scale: 0.95,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                x: "-50%",
                 scale: 1,
               }}
               exit={{
                 opacity: 0,
                 y: -20,
-                x: "-50%",
                 scale: 0.95,
               }}
               transition={{
@@ -115,49 +130,77 @@ export default function Navbar() {
                 ease: "easeOut",
               }}
             >
-              <nav className="flex flex-col py-6 px-6 space-y-2 text-[#3C5148]">
-                {[
-                  { href: "/", label: "Beranda" },
-                  { href: "/mitra", label: "Mitra" },
-                  { href: "/kontak", label: "Kontak" },
-                  { href: "/profile", label: "Profile" },
-                ].map((item, index) => (
+              <nav className="flex flex-col py-6 px-6 space-y-2 text-[#3C5148] pb-8">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0, duration: 0.3 }}
+                >
+                  <Link href="/" onClick={closeMenu}>
+                    <span className="block py-3 px-4 hover:bg-gray-50 hover:text-[#678E4D] transition-colors rounded-lg cursor-pointer font-medium">
+                      Beranda
+                    </span>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1, duration: 0.3 }}
+                >
+                  <Link href="/mitra" onClick={closeMenu}>
+                    <span className="block py-3 px-4 hover:bg-gray-50 hover:text-[#678E4D] transition-colors rounded-lg cursor-pointer font-medium">
+                      Mitra
+                    </span>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2, duration: 0.3 }}
+                >
+                  <a
+                    href="#footer"
+                    onClick={handleKontakClick}
+                    className="block py-3 px-4 hover:bg-gray-50 hover:text-[#678E4D] transition-colors rounded-lg cursor-pointer font-medium"
+                  >
+                    Kontak
+                  </a>
+                </motion.div>
+                {isLoggedIn && (
                   <motion.div
-                    key={item.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: index * 0.1,
-                      duration: 0.3,
-                    }}
+                    transition={{ delay: 0.3, duration: 0.3 }}
                   >
-                    <Link href={item.href} onClick={closeMenu}>
+                    <Link href="/profile" onClick={closeMenu}>
                       <span className="block py-3 px-4 hover:bg-gray-50 hover:text-[#678E4D] transition-colors rounded-lg cursor-pointer font-medium">
-                        {item.label}
+                        Profile
                       </span>
                     </Link>
                   </motion.div>
-                ))}
+                )}
 
-                <motion.div
-                  className="pt-2 border-t border-gray-100"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.4,
-                    duration: 0.3,
-                  }}
-                >
-                  <Link href="/auth" onClick={closeMenu}>
-                    <motion.button
-                      className="w-full px-5 py-3 bg-[#3C5148] text-white rounded-full hover:bg-[#678E4D] transition-colors font-medium"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Login
-                    </motion.button>
-                  </Link>
-                </motion.div>
+                {!isLoggedIn && (
+                  <motion.div
+                    className="pt-2 border-t border-gray-100"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: isLoggedIn ? 0.4 : 0.3,
+                      duration: 0.3,
+                    }}
+                  >
+                    <Link href="/auth" onClick={closeMenu}>
+                      <motion.button
+                        className="w-full px-5 py-3 bg-[#3C5148] text-white rounded-full hover:bg-[#678E4D] transition-colors font-medium"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Login
+                      </motion.button>
+                    </Link>
+                  </motion.div>
+                )}
               </nav>
             </motion.div>
           </>

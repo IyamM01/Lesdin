@@ -6,12 +6,31 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
-const companies: any = {
+interface CompanyContact {
+  instagram: string;
+  email: string;
+  phone: string;
+}
+
+interface Company {
+  name: string;
+  location: string;
+  image: string;
+  mitra: number;
+  divisi: number;
+  kuota: number;
+  description: string;
+  jobs: string[];
+  contact: CompanyContact;
+}
+
+const companies: Record<string, Company> = {
   cargloss: {
     name: "PT Cargloss",
     location: "Jakarta",
-    image: "https://mcp.cargloss.co.id/images/gedung%20cargloss.jpg",
+    image: "/image/carglos.png",
     mitra: 50,
     divisi: 20,
     kuota: 80,
@@ -32,7 +51,7 @@ const companies: any = {
   gamatechno: {
     name: "PT Gamatechno",
     location: "Yogyakarta",
-    image: "https://dummyimage.com/1200x500/16a34a/ffffff&text=PT+Global+Indo",
+    image: "/image/gamatechno.png",
     mitra: 100,
     divisi: 35,
     kuota: 120,
@@ -93,17 +112,20 @@ export default function MitraDetailPage() {
     <div className="bg-gray-50 min-h-screen flex flex-col">
       <Navbar />
 
-      {/* Banner */}
+      {/* Banner - FIXED */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative w-full h-80 mt-16"
       >
-        <img
+        <Image
           src={company.image}
           alt={company.name}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
         />
         <div className="absolute bottom-0 left-0 right-0 bg-gray-100/90 rounded-t-3xl shadow-lg p-6">
           <h1 className="text-3xl font-bold text-gray-800">{company.name}</h1>
@@ -122,7 +144,7 @@ export default function MitraDetailPage() {
       </motion.div>
 
       <main className="flex-grow px-6 py-10 max-w-5xl mx-auto space-y-10">
-        {/* Info Box */}
+        {/* Info Box - FIXED */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,22 +165,19 @@ export default function MitraDetailPage() {
           </div>
         </motion.div>
 
-        {/* Tentang Perusahaan */}
+        {/* Tentang Perusahaan - FIXED */}
         <motion.section
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <h2 className="text-2xl font-semibold mb-4 text-[#3C5148]">
-  Tentang Perusahaan
-</h2>
-
-          <p className="text-gray-700 leading-relaxed">
-            {company.description}
-          </p>
+            Tentang Perusahaan
+          </h2>
+          <p className="text-gray-700 leading-relaxed">{company.description}</p>
         </motion.section>
 
-        {/* Posisi Pekerjaan */}
+        {/* Posisi Pekerjaan - FIXED */}
         <motion.section
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -210,17 +229,17 @@ export default function MitraDetailPage() {
 
         {/* Button daftar */}
         <motion.div
-  initial={{ opacity: 0, y: 40 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ delay: 1.0, duration: 0.6 }}
-  className="text-center"
->
-  <Link href="/pendaftaran">
-    <button className="bg-green-900 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-green-800 transition">
-      Daftar Sekarang →
-    </button>
-  </Link>
-</motion.div>
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+          className="text-center"
+        >
+          <Link href="/pendaftaran">
+            <button className="bg-green-900 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-green-800 transition">
+              Daftar Sekarang →
+            </button>
+          </Link>
+        </motion.div>
       </main>
 
       <Footer />

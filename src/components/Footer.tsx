@@ -2,7 +2,7 @@ import { Facebook, Instagram, Youtube, Phone, Mail, Clock } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3C5148] text-white px-6 md:px-40 py-10">
+    <footer id="footer" className="bg-[#3C5148] text-white px-6 md:px-40 py-10">
       {/* Slogan */}
       <h2 className="text-2xl md:text-3xl font-bold mb-15 mt-5">
         Jiwa Kesatria, Prestasi Mendunia
@@ -14,17 +14,35 @@ export default function Footer() {
         <div>
           <h3 className="font-bold mb-5">SMK Negeri 2 Depok</h3>
           <p className="text-sm leading-relaxed mb-4">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Sekolah menengah kejuruan yang berkomitmen menghasilkan lulusan
+            berkualitas, siap kerja, dan memiliki karakter yang kuat.
           </p>
           <div className="flex gap-4 text-lg">
-            <a href="#">
+            <a
+              href="https://facebook.com/smkn2depok"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400 transition-colors duration-200"
+              title="Facebook SMK Negeri 2 Depok"
+            >
               <Facebook size={20} />
             </a>
-            <a href="https://www.instagram.com/_terse_rah_/">
+            <a
+              href="https://www.instagram.com/_terse_rah_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-pink-400 transition-colors duration-200"
+              title="Instagram SMK Negeri 2 Depok"
+            >
               <Instagram size={20} />
             </a>
-            <a href="#">
+            <a
+              href="https://youtube.com/@smkn2depok"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-red-400 transition-colors duration-200"
+              title="YouTube SMK Negeri 2 Depok"
+            >
               <Youtube size={20} />
             </a>
           </div>
